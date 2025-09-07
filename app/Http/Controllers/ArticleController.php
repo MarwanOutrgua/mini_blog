@@ -14,7 +14,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Article::all(); // importer tous les articles dans BD
+        return view('articles.index', compact('articles'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('articles.create');
     }
 
     /**
@@ -34,9 +35,21 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
+{
+    // check data health
+    $validated = $request->validate([
+        'title' => 'required|min:3',
+        'content' => 'required|min:10',
+    ]);
+
+    // create new article
+    Article::create($validated);
+
+    // success message
+    return redirect()->route('articles.index')
+                     ->with('success', 'Article créé avec succès ✅');
+}
+
 
     /**
      * Display the specified resource.
@@ -46,7 +59,10 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+    
+      return view('articles.show', compact('article'));
+
+
     }
 
     /**
@@ -57,7 +73,9 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+       return view('articles.edit', compact('article'));
+
+
     }
 
     /**
@@ -69,7 +87,15 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $validated = $request->validate([
+        'title' => 'required|min:3',
+        'content' => 'required|min:10',
+    ]);
+
+      $article->update($validated);
+
+        return redirect()->route('articles.index')
+                     ->with('success', 'Article modifié avec succès ✏️');
     }
 
     /**
@@ -80,6 +106,9 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+          $article->delete();
+
+        return redirect()->route('articles.index')
+                     ->with('success', 'Article supprimé avec succès 🗑️');
     }
 }
