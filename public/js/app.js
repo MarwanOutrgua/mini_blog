@@ -1,12 +1,13 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Confirmation avant suppression
-    document.querySelectorAll('form').forEach(form => {
-        form.addEventListener('submit', e => {
-            if(!confirm('Voulez-vous vraiment supprimer cet article ?')) {
+document.addEventListener("DOMContentLoaded", () => {
+    const deleteForms = document.querySelectorAll(".delete-form");
+    deleteForms.forEach(form => {
+        form.addEventListener("submit", (e) => {
+            if (!confirm("Voulez-vous vraiment supprimer cet article ?")) {
                 e.preventDefault();
             }
         });
     });
+
 
     // Ajouter effet hover sur liste (animation légère)
     document.querySelectorAll('li').forEach(li => {

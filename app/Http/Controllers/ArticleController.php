@@ -12,11 +12,20 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $articles = Article::all(); // importer tous les articles dans BD
-        return view('articles.index', compact('articles'));
+   public function index(Request $request)
+{
+    $query = Article::query();
+
+    // Recherche par titre
+    if ($request->filled('search')) {
+        $query->where('title', 'like', '%' . $request->search . '%');
     }
+
+    // Pagination 5 articles par page + garder search
+    $articles = $query->latest()->paginate(5)->appends($request->all());
+
+    return view('articles.index', compact('articles'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -35,20 +44,20 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-{
-    // check data health
-    $validated = $request->validate([
-        'title' => 'required|min:3',
-        'content' => 'required|min:10',
-    ]);
+    {
+        // check data health
+        $validated = $request->validate([
+            'title' => 'required|min:3',
+            'content' => 'required|min:10',
+        ]);
 
-    // create new article
-    Article::create($validated);
+        // create new article
+        Article::create($validated);
 
-    // success message
-    return redirect()->route('articles.index')
-                     ->with('success', 'Article créé avec succès ✅');
-}
+        // success message
+        return redirect()->route('articles.index')
+            ->with('success', 'Article créé avec succès ✅');
+    }
 
 
     /**
@@ -59,10 +68,8 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-    
-      return view('articles.show', compact('article'));
 
-
+        return view('articles.show', compact('article'));
     }
 
     /**
@@ -73,9 +80,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-       return view('articles.edit', compact('article'));
-
-
+        return view('articles.edit', compact('article'));
     }
 
     /**
@@ -88,14 +93,14 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article)
     {
         $validated = $request->validate([
-        'title' => 'required|min:3',
-        'content' => 'required|min:10',
-    ]);
+            'title' => 'required|min:3',
+            'content' => 'required|min:10',
+        ]);
 
-      $article->update($validated);
+        $article->update($validated);
 
         return redirect()->route('articles.index')
-                     ->with('success', 'Article modifié avec succès ✏️');
+            ->with('success', 'Article modifié avec succès ✏️');
     }
 
     /**
@@ -106,9 +111,9 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-          $article->delete();
+        $article->delete();
 
         return redirect()->route('articles.index')
-                     ->with('success', 'Article supprimé avec succès 🗑️');
+            ->with('success', 'Article supprimé avec succès 🗑️');
     }
 }

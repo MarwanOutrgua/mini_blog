@@ -114,3 +114,30 @@ li:hover {
 .list-actions a, .list-actions button {
     margin-left: 5px;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination nav {
+    display: inline-block;
+}
+
+.pagination nav span,
+.pagination nav a {
+    padding: 5px 10px;        
+    margin: 0 3px;
+    border-radius: 4px;
+    font-size: 14px;          
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #007bff;
+    transition: 0.3s;
+}
+
+.pagination nav a:hover {
+    background-color: #007bff;
+    color: #fff;
+}

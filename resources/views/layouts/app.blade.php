@@ -8,7 +8,7 @@
 <body>
     <h1>Mini Blog</h1>
     <nav>
-        <a href="{{ route('articles.index') }}">Articles</a>
+        <a href="{{ route('articles.index') }}">Tous Articles</a>
     </nav>
     <main>
         @yield('content') 
