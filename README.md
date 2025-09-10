@@ -102,16 +102,16 @@ CSS et JS personnalisés
 - Capture d’écran :
 
 ### Page d'accueil (Liste des articles)
-![Liste des articles](public/screenshots/index_page.png)
+![Liste des articles](public/ScreenShots/index_page.png)
 
 ### Créer un nouvel article
-![Créer Article](public/screenshots/create_page.png)
+![Créer Article](public/ScreenShots/create_page.png)
 
 ### Détails d’un article
-![Voir Article](public/screenshots/show_page.png)
+![Voir Article](public/ScreenShots/show_page.png)
 
 ### Modifier un article
-![Modifier Article](public/screenshots/edit_page.png)
+![Modifier Article](public/ScreenShots/edit_page.png)
 
 - Auteur :
 
